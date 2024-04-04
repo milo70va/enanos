@@ -30,7 +30,33 @@ export class PeleaService {
 
     // Lógica de combate por turnos
     while (enano1.salud > 0 && enano2.salud > 0) {
-        console.log('Turno '+ turno);
+        console.log('----------TURNO '+ turno + '----------');
+        //Calcular quien tiene mas velocidad para ver quien ataca primero
+        if (enano1.velocidad > enano2.velocidad) {
+            enano1.salud -= this.calcularDanio(enano2, enano1);
+            if (enano1.salud <= 0) {
+                console.log('El enano '+ enano2.nombre +' ha ganado la pelea');
+                break;
+            }
+
+            enano2.salud -= this.calcularDanio(enano1, enano2);
+            if (enano2.salud <= 0) {
+                console.log('El enano '+ enano1.nombre +' ha ganado la pelea');
+                break;
+            }
+        } else {
+            enano2.salud -= this.calcularDanio(enano1, enano2);
+            if (enano2.salud <= 0) {
+                console.log('El enano '+ enano1.nombre +' ha ganado la pelea');
+                break;
+            }
+
+            enano1.salud -= this.calcularDanio(enano2, enano1);
+            if (enano1.salud <= 0) {
+                console.log('El enano '+ enano2.nombre +' ha ganado la pelea');
+                break;
+            }
+        }
         enano2.salud -= this.calcularDanio(enano1, enano2);
         if (enano2.salud <= 0) {
             console.log('El enano '+ enano1.nombre +' ha ganado la pelea');

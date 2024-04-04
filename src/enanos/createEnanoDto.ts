@@ -61,4 +61,8 @@ export class CreateEnanoDto {
   @IsInt()
   @Min(0)
   inteligencia: number;
+
+  @IsInt()
+  @Min(0)
+  velocidad: number;
 }

@@ -57,6 +57,9 @@ export class Enano {
   @Column()
   inteligencia: number;
 
+  @Column()
+  velocidad: number;
+
   @ManyToOne(() => Usuario, usuario => usuario.enanos)
   usuario: Usuario;
 
@@ -77,7 +80,8 @@ export class Enano {
     fuerza: number,
     resistencia: number,
     agilidad: number,
-    inteligencia: number
+    inteligencia: number,
+    velocidad: number
   ) {
     this.imagen = imagen;
     this.sonido = sonido;
@@ -96,6 +100,7 @@ export class Enano {
     this.resistencia = resistencia;
     this.agilidad = agilidad;
     this.inteligencia = inteligencia;
+    this.velocidad = velocidad;
   }
 }
 
