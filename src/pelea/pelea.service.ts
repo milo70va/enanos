@@ -55,21 +55,24 @@ export class PeleaService {
     // Reducción de estamina
     atacante.estamina -= 10;
     if (atacante.estamina < 0) {
-      atacante.estamina += 20; // Recuperación de estamina
-      return 0; // El atacante no puede atacar este turno
+        atacante.estamina += 20; // Recuperación de estamina
+        console.log('El enano '+ atacante.nombre +' no puede atacar este turno');
+        return 0; // El atacante no puede atacar este turno
     }
-  
+
     // Probabilidad de acertar el golpe
     const probabilidadAcertar = Math.random() * 100;
     if (probabilidadAcertar > atacante.agilidad) {
-      return 0; // El ataque falla
+        console.log('El enano '+ atacante.nombre +' falla el ataque');
+        return 0; // El ataque falla
     }
-  
+
     // Probabilidad de daño crítico
     let multiplicadorDanio = 1;
     const probabilidadCritico = Math.random() * 100;
     if (probabilidadCritico <= atacante.inteligencia) {
       multiplicadorDanio = 1.5;
+        console.log('¡Golpe crítico por parte de '+ atacante.nombre +'!');
     }
   
     // Cálculo del daño
@@ -80,7 +83,7 @@ export class PeleaService {
     if (danio <= 0) {
       return 0; // El defensor bloquea todo el daño
     }
-  
+    console.log('El enano '+ atacante.nombre +' inflige '+ danio +' de daño a '+ defensor.nombre);
     defensor.salud -= danio; // Reducción de salud del defensor
     return danio;
   }
