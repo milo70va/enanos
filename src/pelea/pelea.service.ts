@@ -84,7 +84,7 @@ export class PeleaService {
     // Reducción de estamina
     atacante.estamina -= 10;
     if (atacante.estamina < 0) {
-        atacante.estamina += 20; // Recuperación de estamina
+        atacante.estamina += 30; // Recuperación de estamina
         console.log('El enano '+ atacante.nombre +' no puede atacar este turno');
         return 0; // El atacante no puede atacar este turno
     }
