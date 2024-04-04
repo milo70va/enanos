@@ -16,9 +16,12 @@ export class PeleaService {
   ) {}
 
   async iniciarPelea(idPelea: number): Promise<void> {
+    //Dar numero al turno
+    let turno = 1;
+
     const pelea = await this.buscarPeleaPorId(idPelea);
     if (!pelea) {
-      throw new NotFoundException(`Pelea with id ${idPelea} not found`);
+        throw new NotFoundException(`Pelea with id ${idPelea} not found`);
     }
 
     // Obtiene los enanos que participan en la pelea
@@ -27,27 +30,27 @@ export class PeleaService {
 
     // Lógica de combate por turnos
     while (enano1.salud > 0 && enano2.salud > 0) {
-      // Simular turno: Aquí puedes implementar la lógica de cada turno de combate
-      // Por ejemplo, reducir la vida de los enanos, calcular el daño, etc.
-      enano2.salud -= this.calcularDanio(enano1, enano2);
-      if (enano2.salud <= 0) {
-        // Enano 1 ganó
-        break;
-      }
+        console.log('Turno '+ turno);
+        enano2.salud -= this.calcularDanio(enano1, enano2);
+        if (enano2.salud <= 0) {
+            console.log('El enano '+ enano1.nombre +' ha ganado la pelea');
+            break;
+        }
 
-      enano1.salud -= this.calcularDanio(enano2, enano1);
-      if (enano1.salud <= 0) {
-        // Enano 2 ganó
-        break;
-      }
+        enano1.salud -= this.calcularDanio(enano2, enano1);
+        if (enano1.salud <= 0) {
+            console.log('El enano '+ enano2.nombre +' ha ganado la pelea');
+            break;
+        }
+        }
+
+        // Actualiza los enanos en la base de datos
+        await this.enanosService.update(enano1.id, enano1);
+        await this.enanosService.update(enano2.id, enano2);
+
+        //Suma 1 al turno
+        turno++;
     }
-
-    // Actualiza los enanos en la base de datos
-    await this.enanosService.update(enano1.id, enano1);
-    await this.enanosService.update(enano2.id, enano2);
-
-    // Puedes guardar el estado de la pelea, el ganador, etc., en la base de datos si es necesario
-  }
 
 
 
